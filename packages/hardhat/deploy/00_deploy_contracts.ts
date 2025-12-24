@@ -55,6 +55,20 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
     autoMine: true,
   });
 
+  await deploy("FlashLoanLiquidator", {
+    from: deployer,
+    args: [lending.address, cornDEX.target, cornToken.target],
+    log: true,
+    autoMine: true,
+  });
+
+  await deploy("Leverage", {
+    from: deployer,
+    args: [lending.address, cornDEX.target, cornToken.target],
+    log: true,
+    autoMine: true,
+  });
+
   // Only set up contract state on local network
   if (hre.network.name == "localhost") {
     // Give ETH and CORN to the move price contract
